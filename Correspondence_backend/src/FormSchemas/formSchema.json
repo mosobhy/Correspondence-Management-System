@@ -1,0 +1,189 @@
+{
+    "components": [
+        {
+            "label": "1",
+            "placeholder": "---",
+            "tableView": true,
+            "key": "corr_no",
+            "type": "textfield",
+            "input": true
+        },
+        {
+            "label": "2",
+            "placeholder": "---",
+            "tableView": true,
+            "key": "corr_type",
+            "type": "textfield",
+            "input": true
+        },
+        {
+            "label": "3",
+            "placeholder": "---",
+            "tableView": true,
+            "key": "entity_no",
+            "type": "textfield",
+            "input": true
+        },
+        {
+            "label": "4",
+            "placeholder": "---",
+            "tableView": false,
+            "key": "cc_entity",
+            "type": "tags",
+            "input": true
+        }, 
+        {
+            "label": "5",
+            "placeholder": "---",
+            "tableView": true,
+            "key": "to_entity",
+            "type": "textfield",
+            "input": true
+        },
+        {
+            "label": "6",
+            "placeholder": "---",
+            "tableView": true,
+            "key": "to_department",
+            "type": "textfield",
+            "input": true
+        },
+        {
+            "label": "7",
+            "placeholder": "---",
+            "tableView": true,
+            "key": "corr_subject",
+            "type": "textfield",
+            "input": true
+        },
+        {
+            "label": "8",
+            "placeholder": "---",
+            "tableView": false,
+            "key": "docs_IDs",
+            "type": "tags",
+            "input": true
+        },
+        {
+            "label": "9",
+            "placeholder": "Add a Due Date",
+            "tableView": false,
+            "datePicker": {
+                "disableWeekends": false,
+                "disableWeekdays": false
+            },
+            "enableMinDateInput": false,
+            "enableMaxDateInput": false,
+            "key": "due_date",
+            "type": "datetime",
+            "input": true,
+            "widget": {
+                "type": "calendar",
+                "displayInTimezone": "viewer",
+                "locale": "en",
+                "useLocaleSettings": false,
+                "allowInput": true,
+                "mode": "single",
+                "enableTime": true,
+                "noCalendar": false,
+                "format": "yyyy-MM-dd hh:mm a",
+                "hourIncrement": 1,
+                "minuteIncrement": 1,
+                "time_24hr": false,
+                "minDate": null,
+                "disableWeekends": false,
+                "disableWeekdays": false,
+                "maxDate": null
+            }
+        },
+        {
+            "label": "10",
+            "widget": "choicesjs",
+            "placeholder": "Select Priority Level",
+            "defaultValue": "normal",
+            "tableView": true,
+            "data": {
+                "values": [
+                    {
+                        "label": "High",
+                        "value": "high"
+                    },
+                    {
+                        "label": "Low",
+                        "value": "low"
+                    },
+                    {
+                        "label": "Normal",
+                        "value": "normal"
+                    }
+                ]
+            },
+            "key": "priority",
+            "type": "select",
+            "input": true
+        },
+        {
+            "label": "11",
+            "widget": "choicesjs",
+            "placeholder": "Classification",
+            "defaultValue": "normal",
+            "tableView": true,
+            "data": {
+                "values": [
+                    {
+                        "label": "Confidential",
+                        "value": "confidential"
+                    },
+                    {
+                        "label": "Normal",
+                        "value": "normal"
+                    }
+                ]
+            },
+            "key": "classification",
+            "type": "select",
+            "input": true
+        },
+        {
+            "label": "12",
+            "widget": "choicesjs",
+            "placeholder": "Await Reply",
+            "defaultValue": false,
+            "tableView": true,
+            "data": {
+                "values": [
+                    {
+                        "label": "True",
+                        "value": "true"
+                    },
+                    {
+                        "label": "False",
+                        "value": "false"
+                    }
+                ]
+            },
+            "key": "await_reply",
+            "type": "select",
+            "input": true
+        },
+        {
+            "label": "13",
+            "editor": "ckeditor",
+            "autoExpand": false,
+            "tableView": true,
+            "key": "corr_body",
+            "type": "textarea",
+            "isUploadEnabled": false,
+            "input": true
+        },
+        {
+            "label": "14",
+            "showValidations": false,
+            "tableView": false,
+            "key": "send",
+            "type": "button",
+            "input": true,
+            "saveOnEnter": false
+        }
+    ]
+}

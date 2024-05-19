@@ -1,0 +1,50 @@
+
+    <!-- inbox header -->
+    <div class="flex-grow-0">
+        <!-- inbox title -->
+        <div class="d-flex align-items-center pl-2 pr-3 py-3 pl-sm-3 pr-sm-4 py-sm-4 px-lg-5 py-lg-4  border-faded border-top-0 border-left-0 border-right-0 flex-shrink-0">
+            <!-- button for mobile -->
+            <a href="javascript:void(0);" class="pl-3 pr-3 py-2 d-flex d-lg-none align-items-center justify-content-center mr-2 btn" data-action="toggle" data-class="slide-on-mobile-left-show" data-target="#js-inbox-menu">
+                <i class="fal fa-ellipsis-v h1 mb-0 "></i>
+            </a>
+            <!-- end button for mobile -->
+            <h1 class="subheader-title ml-1 ml-lg-0">
+                <i class="fas fa-folder-open mr-2 hidden-lg-down"></i>
+                {{ title }} 
+            </h1>
+        </div>
+        <!-- end inbox title -->
+        <!-- inbox button shortcut -->
+        <div class="d-flex flex-wrap align-items-center pl-3 pr-1 py-2 px-sm-4 px-lg-5 border-faded border-top-0 border-left-0 border-right-0">
+            <div class="flex-1 d-flex align-items-center">
+                <div class="custom-control custom-checkbox mr-2 mr-lg-2 d-inline-block">
+                    <input type="checkbox" class="custom-control-input" id="js-msg-select-all">
+                    <label class="custom-control-label bolder" for="js-msg-select-all"></label>
+                </div>
+                <a href="javascript:void(0);" class="btn btn-icon rounded-circle mr-1">
+                    <i class="fas fa-redo fs-md"></i>
+                </a>
+                <a href="javascript:void(0);" class="btn btn-icon rounded-circle mr-1">
+                    <i class="fas fa-exclamation-circle fs-md"></i>
+                </a>
+                <a href="javascript:void(0);" id="js-delete-selected" class="btn btn-icon rounded-circle mr-1">
+                    <i class="fas fa-trash fs-md"></i>
+                </a>
+            </div>
+            
+        </div>
+        <!-- end inbox button shortcut -->
+    </div>
+  
+    <div class="px-3" >
+  
+      <formio 
+        [form]="formSchema" 
+        [submission]="initialFormFields" 
+        (change)="updateCurrentFormFields($event)" 
+        (submit)="sendReplay($event)">
+      </formio>
+
+  </div>
+  
+    

@@ -1,0 +1,65 @@
+{
+    "FILTER_BOX": "Filter Messages",
+    "COMPOSE": {
+        "TITLE": "Compose Message",
+        "ERROR": {
+            "400": {
+                "1": "Correspondence Number should be passed",
+                "2": "Correspondence Type shoudl be passed",
+                "3": "Entity Number should be passed",
+                "6": "Sending User (from_user) should be passed",
+                "7": "Sending Email (from_email) should be passed",
+                "8": "Entity Address should be passed",
+                "9": "The receiving entit (to_entity) should be passed",
+                "10": "Receiving Department is not set",
+                "11": "Priority level is not set",
+                "12": "Classification level is not set",
+                "13": "Correspondence Subject must be passed",
+                "14": "Correspondence Body must be passed"
+            }
+        },
+        "PLACEHOLDERS": {
+            "1": "Correspondence Number",
+            "2": "Correspondence Type",
+            "3": "Entity Number",
+            "4": "CC Entity",
+            "5": "To Entity",
+            "6": "To Department",
+            "7": "Correspondence Subject",
+            "8": "Attatched Documents IDs",
+            "9": "Due Date",
+            "10": "Priority",
+            "11": "Classification",
+            "12": "Await Reply",
+            "13": "Correspondence Body",
+            "14": "Send"
+        }
+    },
+    "SIDE_BAR": {
+        "COMPOSE_BUTTON": "Compose",
+        "INBOX": "Inbox",
+        "STARRED": "Starred",
+        "DRAFT": "Drafts",
+        "SPAM": "Spam",
+        "SENT": "Sent",
+        "TRASH": "Trash"
+    },
+    "INBOX": {
+        "TITLE": "Inbox"
+    },
+    "STARRED": {
+        "TITLE": "Starred"
+    },
+    "DRAFT": {
+        "TITLE": "Drafts"
+    },
+    "SENT": {
+        "TITLE": "Sent"
+    },
+    "SPAM": {
+        "TITLE": "Spam"
+    },
+    "TRASH": {
+        "TITLE": "Trash"
+    }
+}

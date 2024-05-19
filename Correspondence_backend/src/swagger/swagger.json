@@ -1,0 +1,1356 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+      "title": "Correspondence System API Documentation",
+      "description": "Fake Online REST API for Testing and Prototyping",
+      "version": "0.0.1"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:5000/api/",
+            "description": "Development server"
+        }
+    ],
+    "paths": {
+        "/formDesign/getFormSchema": {
+            "get": {
+                "summary": "Get the schema of the correspondence entity",
+                "description": "Fetches the schema of the correspondence entity to draw the form",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "Schema is fetched successfully",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/correspondence"
+                        }
+                    },
+                    "400": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "500": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/insert": {
+            "post": {
+                "summary": "Creates a new thread of messages",
+                "description": "Creates a new Thread with this correspondence object within it",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "correspondence",
+                        "required": true,
+                        "description": "The object that comprises the correspondence message",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/correspondence"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Threads is created successfully",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message" : {
+                                    "type": "string"
+                                },
+                                "doc": {
+                                    "type": "object"
+                                },
+                                "status": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "500": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/insert/addReplay": {
+            "post": {
+                "summary": "Adds a reply to a specific thread",
+                "description": "Given a correspondence object, this function adds it as a reply on the proviced thread ID",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "correspondence",
+                        "required": true,
+                        "description": "The object that comprises the correspondence message",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/correspondence"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Reply is created successfully",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message" : {
+                                    "type": "string"
+                                },
+                                "status": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "500": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/inbox/paging/v2" : {
+            "get" : {
+                "summary" : "Get all threads",
+                "description": "Get all threads based on the value of the page and limit parameter",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "description": "page parameter represents the current page location",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    { 
+                        "in": "query",
+                        "name": "limit",
+                        "description": "page parameter represents the current page location",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Got all inbox threads successfully",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/correspondence"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/inbox/count/v2": {
+            "get": {
+                "summary": "Get the count of all threads",
+                "description": "Get the count of all threads",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "count": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }, 
+                    "400": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "500": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/star/paging/v2": {
+            "get": {
+                "summary": "Get all starred threads",
+                "description": "Get all threads that have at least one starred message",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "description": "page parameter represents the current page location",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    { 
+                        "in": "query",
+                        "name": "limit",
+                        "description": "page parameter represents the current page location",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Got all inbox threads successfully",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/correspondence"
+                            }
+                        }
+                    },
+                    "400": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "500": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/star/starThreadById": {
+            "get": {
+                "summary": "Starring a thread",
+                "description": "Given the ID of a particular thread, star the last message of it",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "thread_id",
+                        "description": "this query string represents the thread id to be starred",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            },
+            "responses": {
+                "200": {
+                    "description": "Threads is starred successfully",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "message" : {
+                                "type": "string"
+                            },
+                            "updated": {
+                                "type": "boolean"
+                            },
+                            "status": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "schema": {
+                        "type": "object",
+                        "$ref": "#/definitions/error"
+                    }
+                },
+                "500": {
+                    "schema": {
+                        "type": "object",
+                        "$ref": "#/definitions/error"
+                    }
+                }
+            }
+        },
+        "/star/starDocumentById": {
+            "get": {
+                "summary": "Star a message",
+                "description": "Given a message ID, mark it as starred",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "corr_id",
+                        "description": "the correspondence ID to be starred",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Correspondence is starred successfully",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message" : {
+                                    "type": "string"
+                                },
+                                "updated": {
+                                    "type": "boolean"
+                                },
+                                "status": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "500": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/star/count/v2": {
+            "get": {
+                "summary": "Get the count of all starred threads",
+                "description": "Get the count of all starred threads",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "count": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }, 
+                    "400": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "500": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/draft/paging/v2": {
+            "get": {
+                "summary": "Get all drafted threads and drafted correspondences",
+                "description": "get all drafts",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "description": "page parameter represents the current page location",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    { 
+                        "in": "query",
+                        "name": "limit",
+                        "description": "page parameter represents the current page location",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Got all drafted threads successfully",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/correspondence"
+                            }
+                        }
+                    },
+                    "400": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "500": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/draft/draftDocument": {
+            "post": {
+                "summary": "Draft a particular correspondence",
+                "description": "Given a correspondence object, we have to update it in the DB if it exists and mark it as drafted, and if it doesn't exist, we should createa  new one and return it",
+                "consumes": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "corresondence",
+                        "description": "the object containing correspondence data to be drafted",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/correspondence"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Correspondence is drafted successfully",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                },
+                                "doc": {
+                                    "type": "object"
+                                },
+                                "status": {
+                                    "type": "number"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "500": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/draft/draftReply": {
+            "post": {
+                "summary": "Drafting a reply on a particular thread",
+                "description": "Given the thread ID and the ID of the parent message, add this object if doesn't exist and mark it as drafted, or if its exist, just mark as drafted",
+                "consumes": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "parent_id",
+                        "description": "The ID of the parent message to attached with",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "body",
+                        "name": "thread_id",
+                        "description": "The thread id that is common across all of the correspondences",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "body",
+                        "name": "doc",
+                        "description": "the object containing correspondence data to be added as a reply",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/correspondence"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Correspondence is drafted successfully",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                },
+                                "doc": {
+                                    "type": "object"
+                                },
+                                "status": {
+                                    "type": "number"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "500": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/draft/count/v2": {
+            "get": {
+                "summary": "Get the count of all drafted threads",
+                "description": "Get the count of all drafted threads",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "count": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }, 
+                    "400": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "500": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/delete/paging/v2": {
+            "get": {
+                "summary": "Get all deleted threads",
+                "description": "get all deleted threads",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "description": "page parameter represents the current page location",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    { 
+                        "in": "query",
+                        "name": "limit",
+                        "description": "page parameter represents the current page location",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Got all trashed threads successfully",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/correspondence"
+                            }
+                        }
+                    },
+                    "400": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "500": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/delete/deleteBulkThreads": {
+            "delete": {
+                "summary": "Delete a list of threads",
+                "description": "Given a list of thread IDs, they should be markd as deleted",
+                "consumes": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "thread_IDs",
+                        "description": "An array of thread IDs to be marked as deleted",
+                        "required": true,
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Marked all provided thread IDs as trashed",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                },
+                                "status": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "500": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/delete/deleteThreadById": {
+            "delete": {
+                "summary": "Delete a threads",
+                "description": "Given a thread ID, it should be markd as deleted",
+                "consumes": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "thread_id",
+                        "description": "The ID of the thread to be deleted",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Marked that thread as trashed",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                },
+                                "status": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "500": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/delete/reFill": {
+            "get": {
+                "summary": "Refill all deleted threads in real time asynchronously",
+                "description": "Refill all deleted threads from the next page",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "fromComp",
+                        "description": "A String denoting the name of the component from which the request is sent",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "count",
+                        "description": "An Integer number denoting the number of threads to fetch",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "A number denoting the size of the page",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "description": "A number denoting the next page to be fetched from",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "All of the threads to replace the deleted one",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/correspondence"
+                            }
+                        }
+                    },
+                    "400": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "500": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/delete/count": {
+            "get": {
+                "summary": "Get the count of all trashed threads",
+                "description": "Get the count of all trashed threads",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "count": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }, 
+                    "400": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "500": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/details/traverseThread": {
+            "summary": "get all the messages of a particular thread id",
+            "description": "Given the last message ID of a particular thread, this endpoint return the whole thread messages",
+            "produces": ["application/json"],
+            "parameters": [
+                {
+                    "in": "query",
+                    "name": "corr_id",
+                    "description": "The ID of the last message in thread",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "All of the threads to replace the deleted one",
+                    "schema": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/correspondence"
+                        }
+                    }
+                },
+                "400": {
+                    "schema": {
+                        "type": "object",
+                        "$ref": "#/definitions/error"
+                    }
+                },
+                "500": {
+                    "schema": {
+                        "type": "object",
+                        "$ref": "#/definitions/error"
+                    }
+                }
+            }
+        },
+        "/details/getNextThreadByCurrentThreadID": {
+            "summary": "Get the next thread",
+            "description": "Given the current thread ID, this function retrieves the next thread messages",
+            "produces": ["application/json"],
+            "parameters": [
+                {
+                    "in": "query",
+                    "name": "fromComp",
+                    "description": "A string that denoting the component that the request has reached from",
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "query",
+                    "name": "current_thread_id",
+                    "description": "A string represnting the thread ID the fetch the one next to it",
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "All of the threads to replace the deleted one",
+                    "schema": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/correspondence"
+                        }
+                    }
+                },
+                "400": {
+                    "schema": {
+                        "type": "object",
+                        "$ref": "#/definitions/error"
+                    }
+                },
+                "500": {
+                    "schema": {
+                        "type": "object",
+                        "$ref": "#/definitions/error"
+                    }
+                }
+            }
+        },
+        "/details/getPreviousThreadByCurrentThreadID": {
+            "summary": "Get the previous thread",
+            "description": "Given the current thread ID, this function retrieves the previous thread messages",
+            "produces": ["application/json"],
+            "parameters": [
+                {
+                    "in": "query",
+                    "name": "fromComp",
+                    "description": "A string that denoting the component that the request has reached from",
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "query",
+                    "name": "current_thread_id",
+                    "description": "A string represnting the thread ID the fetch the one before it",
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "All of the threads to replace the deleted one",
+                    "schema": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/correspondence"
+                        }
+                    }
+                },
+                "400": {
+                    "schema": {
+                        "type": "object",
+                        "$ref": "#/definitions/error"
+                    }
+                },
+                "500": {
+                    "schema": {
+                        "type": "object",
+                        "$ref": "#/definitions/error"
+                    }
+                }
+            }
+        },
+        "/filter/filterForInbox": {
+            "get": {
+                "summary": "Search for a specific keyword in the inbox threads",
+                "description": "Given the keyword query, this endpoint should search for all matches to that keyword in the all of the inbox threads and return them",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "keyword",
+                        "description": "A string to search for in the inbox threads",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "description": "A number representing the current page location",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "A number representing the size of the page",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "All of threads that contain the keyword query sort by their relevance",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/correspondence"
+                            }
+                        }
+                    },
+                    "400": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "500": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/filter/filterForStarred": {
+            "get": {
+                "summary": "Search for a specific keyword in the starred threads",
+                "description": "Given the keyword query, this endpoint should search for all matches to that keyword in the all of the starred threads and return them",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "keyword",
+                        "description": "A string to search for in the starred threads",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "description": "A number representing the current page location",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "A number representing the size of the page",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "All of threads that contain the keyword query sort by their relevance",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/correspondence"
+                            }
+                        }
+                    },
+                    "400": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "500": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/filter/filterForDraft": {
+            "get": {
+                "summary": "Search for a specific keyword in the draft threads",
+                "description": "Given the keyword query, this endpoint should search for all matches to that keyword in the all of the drafted threads and return them",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "keyword",
+                        "description": "A string to search for in the drafted threads",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "description": "A number representing the current page location",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "A number representing the size of the page",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "All of threads that contain the keyword query sort by their relevance",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/correspondence"
+                            }
+                        }
+                    },
+                    "400": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "500": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/filter/filterForTrash": {
+            "get": {
+                "summary": "Search for a specific keyword in the trash threads",
+                "description": "Given the keyword query, this endpoint should search for all matches to that keyword in the all of the trash threads and return them",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "keyword",
+                        "description": "A string to search for in the trash threads",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "description": "A number representing the current page location",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "A number representing the size of the page",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "All of threads that contain the keyword query sort by their relevance",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/correspondence"
+                            }
+                        }
+                    },
+                    "400": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "500": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/filter/filterForSent": {
+            "get": {
+                "summary": "Search for a specific keyword in the sent threads",
+                "description": "Given the keyword query, this endpoint should search for all matches to that keyword in the all of the sent threads and return them",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "keyword",
+                        "description": "A string to search for in the sent threads",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "description": "A number representing the current page location",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "A number representing the size of the page",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "All of threads that contain the keyword query sort by their relevance",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/correspondence"
+                            }
+                        }
+                    },
+                    "400": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "500": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "error": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                }
+            }
+        },
+        "correspondence": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "corr_no": {
+                    "type": "string"
+                },
+                "corr_type": {
+                    "type": "string"
+                },
+                "entity_no": {
+                    "type": "string"
+                },
+                "from_user": {
+                    "type": "array"
+                },
+                "cc_entity": {
+                    "type": "array"
+                },
+                "to_entity": {
+                    "type": "string"
+                },
+                "to_department": {
+                    "type": "string"
+                },
+                "sent_date": {
+                    "type": "string"
+                },
+                "corr_subject": {
+                    "type": "string"
+                },
+                "corr_body": {
+                    "type": "string"
+                },
+                "message_status": {
+                    "type": "string"
+                },
+                "docs_IDs": {
+                    "type": "array"
+                },
+                "due_date": {
+                    "type": "string"
+                },
+                "delete": {
+                    "type": "boolean"
+                },
+                "draft": {
+                    "type": "boolean"
+                },
+                "thread_id": {
+                    "type": "string"
+                },
+                "await_reply": {
+                    "type": "boolean"
+                },
+                "classification": {
+                    "type": "string"
+                },
+                "priority": {
+                    "type": "string"
+                },
+                "received_date": {
+                    "type": "string"
+                },
+                "starred": {
+                    "type": "boolean"
+                },
+                "isThreadStarred": {
+                    "type": "boolean"
+                },
+                "isThreadDrafted": {
+                    "type": "boolean"
+                }
+            }
+        }
+    }
+  }

@@ -1,0 +1,96 @@
+{
+  "name" : "default",
+  "type" : "default",
+  "parentId" : "default",
+  "children" : ["default"],  
+  "path" : "default",
+  "totalSize" : 1,
+  "createdDate" : "Aug 29, 2022, 2:53:23 AM", 
+  "createdBy" : "default",
+  "content": {
+      "Correspondence": {
+          "corr_no": "default",
+          "corr_type": "default",
+          "entity_no": "default",
+          "from_entity": "default",
+          "from_department": "default",
+          "from_user": "default",
+          "from_email": "default",
+          "entity_address": "default",
+          "cc_entity": ["default"],
+          "to_entity": "default",
+          "to_department": "default",
+          "received_date": "Aug 29, 2022, 2:53:23 AM",
+          "received_user": "default",
+          "sent_date": "Aug 29, 2022, 2:53:23 AM",
+          "priority": "default",
+          "classification": "default",
+          "corr_subject": "default",
+          "corr_body": "default",
+          "await_reply": false,
+          "message_status": "default",
+          "docs_IDs": ["default"],
+          "due_date": "Aug 29, 2022, 2:53:23 AM",
+          "starred": "default",
+          "delete": false,
+          "draft": false
+      },  
+      "SystemContentType": {
+          "data": {
+              "VersionContentType": {
+                  "data": {
+                      "versionNumber": 1,
+                      "currentRenditionSize": 1,
+                      "currentVersionSize": 1,
+                      "extention": "default"
+                  }
+              }
+          },
+          "CommonContentType": {
+              "data": {
+                  "id": "default",
+                  "name": "default",
+                  "type": "default",
+                  "creationDate": "Aug 29, 2022, 2:53:23 AM",
+                  "creationBy": "default",
+                  "modificationDate": "Aug 29, 2022, 2:53:23 AM",
+                  "modificationBy": "default",
+                  "currentSize": 1,
+                  "icon": "default",
+                  "contentTypeName": "default"
+              }
+          }
+      }        
+  },
+  "contentTypeId" : "default",
+  "allowedDocTypes" : ["default"],
+  "binaryData" : "default",
+  "modifiedDate" : "Aug 29, 2022, 2:53:23 AM",
+  "modifiedBy" : "default",
+  "contentTypeGroupId" : "default",
+  "favouriteUsers" : ["default"],
+  "isCheckedOut" :  false,
+  "checkedOutBy" : "default",
+  "checkedOutDate" : "Aug 29, 2022, 2:53:23 AM",
+  "ACP": {
+      "DACL" : [{"key1": "default"}],
+      "IACL" : [{"key1": "default"}],
+      "SHACL" : [{"key1": "default"}]
+  },
+  "isBroke" : false,
+  "newPath" : "default",
+  "userInfo": {
+      "id" : "default",
+      "email" : "default",
+      "fullName" : "default",
+      "ImageUrl" : "default"
+  },
+  "contentTypeInfo": {
+      "id" : "default",
+      "title" : "default",
+      "groupId" : "default",
+      "key" : "default"
+  },
+  "assignedProcesses" : ["default"],
+  "fields" : ["default"]
+}

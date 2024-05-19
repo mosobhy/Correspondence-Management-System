@@ -1,0 +1,38 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import 'css/vendors.bundle.css';
+@import 'css/app.bundle.css';
+@import 'css/skins/skin-master.css';
+@import 'css/fa-solid.css';
+@import 'css/fa-brands.css';
+
+@import 'css/themes/cust-theme-1.css';
+@import 'css/themes/cust-theme-2.css';
+@import 'css/themes/cust-theme-3.css';
+
+@import 'css/themes/cust-theme-4.css';
+@import 'css/themes/cust-theme-5.css';
+@import 'css/themes/cust-theme-6.css';
+@import 'css/themes/cust-theme-7.css';
+@import 'css/themes/cust-theme-8.css';
+@import 'css/themes/cust-theme-9.css';
+@import 'css/themes/cust-theme-10.css';
+@import 'css/themes/cust-theme-11.css';
+@import 'css/themes/cust-theme-12.css';
+@import 'css/themes/cust-theme-13.css';
+@import 'css/themes/cust-theme-14.css';
+@import 'css/themes/cust-theme-15.css';
+
+@import url(https://github.com/angular/components/blob/master/src/material/core/theming/prebuilt/indigo-pink.scss); 
+@import "~@angular/material/prebuilt-themes/indigo-pink.css"; 
+
+@font-face {
+    font-family: GraublauWeb;
+    font-weight: bold;
+    src: url("/nextgen-icons.woff") format("woff"),
+         url("/nextgen-icons.ttf") format("ttf"),
+         url("/nextgen-icons.svg") format("svg");
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+

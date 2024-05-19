@@ -1,0 +1,133 @@
+
+
+
+
+    <!-- inbox header -->
+    <div class="flex-grow-0">
+        <!-- inbox title -->
+        <div class="d-flex align-items-center pl-2 pr-3 py-3 pl-sm-3 pr-sm-4 py-sm-4 px-lg-5 py-lg-4  border-faded border-top-0 border-left-0 border-right-0 flex-shrink-0">
+            <!-- button for mobile -->
+            <a href="javascript:void(0);" class="pl-3 pr-3 py-2 d-flex d-lg-none align-items-center justify-content-center mr-2 btn" data-action="toggle" data-class="slide-on-mobile-left-show" data-target="#js-inbox-menu">
+                <i class="fal fa-ellipsis-v h1 mb-0 "></i>
+            </a>
+            <!-- end button for mobile -->
+            <h1 class="subheader-title ml-1 ml-lg-0">
+                <i class="fas fa-folder-open mr-2 hidden-lg-down"></i>
+                {{ 'INBOX.TITLE' | translate }}
+            </h1>
+            <div class="d-flex position-relative ml-auto" style="max-width: 23rem;">
+                <i class="fas fa-search position-absolute pos-left fs-lg px-3 py-2 mt-1"></i>
+                <input (change)="filterByText()" id="filterInputBox" type="text" class="form-control bg-subtlelight pl-6" placeholder="{{ 'FILTER_BOX' | translate }}">
+            </div>
+        </div>
+        <!-- end inbox title -->
+        <!-- inbox button shortcut -->
+        <div class="d-flex flex-wrap align-items-center pl-3 pr-1 py-2 px-sm-4 px-lg-5 border-faded border-top-0 border-left-0 border-right-0">
+            <div class="flex-1 d-flex align-items-center">
+                <div class="custom-control custom-checkbox mr-2 mr-lg-2 d-inline-block">
+                    <input (click)="selectAllItemsToDelete()" type="checkbox" class="form-check-input" [value]="-1" class="custom-control-input" id="js-msg-select-all" />
+                    <label class="custom-control-label bolder" for="js-msg-select-all"></label>
+                  </div>
+                <a href="javascript:void(0);" class="btn btn-icon rounded-circle mr-1">
+                    <i class="fas fa-redo fs-md"></i>
+                </a>
+                <a href="javascript:void(0);" class="btn btn-icon rounded-circle mr-1">
+                    <i class="fas fa-exclamation-circle fs-md"></i>
+                </a>
+                <a (click)="deleteCheckedCorrs()" id="js-delete-selected" class="btn btn-icon rounded-circle mr-1">
+                    <i class="fas fa-trash fs-md"></i>
+                </a>
+            </div>
+            <div class="text-muted mr-1 mr-lg-3 ml-auto">
+                <span>
+                    {{ ((page * limit) - limit) + 1 }}
+                </span>
+                 - 
+                <span>
+                    {{ (page * limit) > currentInboxCount ? currentInboxCount : (page * limit) }}
+                </span> 
+                <span class="lg-down">
+                    of {{ currentInboxCount }}
+                </span>
+            </div>
+            <div class="d-flex flex-wrap">
+                <button id="previous" [disabled]="isPrevDisabled" (click)="getPrevious()" class="btn btn-icon rounded-circle"><i class="fal fa-chevron-left fs-md"></i></button>
+                <button id="next" [disabled]="isNextDisabled" (click)="getNext()" class="btn btn-icon rounded-circle"><i class="fal fa-chevron-right fs-md"></i></button>
+            </div>
+
+        </div>
+        <!-- end inbox button shortcut -->
+    </div>
+    <!-- end inbox header -->
+
+
+
+<div class="flex-wrap align-items-center flex-grow-1 position-relative bg-gray-50">
+<div class="pos-top pos-bottom w-100 custom-scroll">
+<div class="d-flex h-100 flex-column">
+
+
+
+
+
+<ng-template #elseBlock><div style="margin: 20px">fetching.....</div></ng-template>
+<ng-template #elseBlock2 ><div style="margin: 20px">No Correspondents to Display</div></ng-template>
+
+<ul *ngIf="correspondence_objects.length >= 1; else elseBlock" id="js-emails" class="notification notification-layout-2">
+    <li *ngFor="
+        let corr of correspondence_objects
+
+    " 
+    >
+
+        <!-- update the color of the unread ones -->
+        <div [style.background-color]="corr.threadReadStatus === 'sent' ? '#efebf5' : '#ffffff'" class="d-flex align-items-center px-3 px-sm-4 px-lg-5 py-1 py-lg-0 height-4 height-mobile-auto">
+            <div class="custom-control custom-checkbox mr-3 order-1">
+                <input (click)="selectItemToDelete(corr.thread_id)" type="checkbox" class="custom-control-input" id="{{ corr.thread_id }}">
+                <label class="custom-control-label" for="{{ corr.thread_id}}"></label>
+            </div>
+            <a 
+                (click)="starCorrespondent($event)" 
+                [style.color]="corr.isThreadStarred? 'gold' : 'black'" 
+                class="d-flex align-items-center py-1 ml-2 mt-4 mt-lg-0 ml-lg-0 mr-lg-4 fs-lg color-warning-500 order-3 order-lg-2">
+                <i [attr.data-thread_id]="corr.thread_id" class="fas fa-star"></i>
+            </a>
+            <div (click)="handleClick(corr._id, corr.thread_id)" class="d-flex flex-row flex-wrap flex-1 align-items-stretch align-self-stretch order-2 order-lg-3">
+
+                <ng-template #thread>
+                    <a class="name d-flex width-sm align-items-center pt-1 pb-0 py-lg-1 col-12 col-lg-auto">{{ corr.from_user }}</a>
+                    <a 
+                        class="name d-flex align-items-center pt-0 pb-1 py-lg-1 flex-1 col-12 col-lg-auto">
+                        {{ corr.corr_subject }} 
+                        <div 
+                            [style.display]="corr.isThreadDrafted ? '' : 'none'" 
+                            style="color: #dc3545;">
+                                , draft
+                        </div>
+                    </a>
+                    <a class="name d-flex width-sm align-items-center pt-1 pb-0 py-lg-1 col-12 col-lg-auto" style="color: gray; font-size:small;">Open Conversation</a>
+                </ng-template>
+
+                <ng-template #message>
+                    <a class="name d-flex width-sm align-items-center pt-1 pb-0 py-lg-1 col-12 col-lg-auto">{{ corr.from_user }}</a>
+                    <a class="name d-flex align-items-center pt-0 pb-1 py-lg-1 flex-1 col-12 col-lg-auto">{{ corr.corr_subject }}</a>
+                </ng-template>
+
+                <div *ngIf="corr.isThread then thread else message" class="row w-100">
+                </div>
+            </div>
+            
+            <div class="fs-sm text-muted ml-auto hide-on-hover-parent order-4 position-on-mobile-absolute pos-top pos-right mt-2 mr-3 mr-sm-4 mt-lg-0 mr-lg-0">{{ corr.sent_date | date: 'short' }}</div>
+
+        </div>
+    </li>
+
+
+</ul>
+
+
+
+
+</div>
+</div>
+</div>

@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "build:front": "cd Correspondence_frontend && npm run build",
+    "build:back": "cd Correspondence_backend && npm run build",
+    "start:back": "cd Correspondence_backend && npm run up",
+    "start:front": "cd Correspondence_frontend && npm run start",
+    "test:back": "cd Correspondence_backend && npm run test"
+  },
+    
+}
